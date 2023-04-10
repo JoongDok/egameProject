@@ -554,7 +554,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
         const today = new Date();
         const year = today.getFullYear(); // 년도
         const month = fillZero(2,(today.getMonth() + 1));  // 월
-        const date = fillZero(2,today.getDate());  // 날짜
+        const date = today.getDate();  // 날짜
         const sysDate = ''+year+month+date;
 
         discntStartDate = discntStartDate.replaceAll("-","");

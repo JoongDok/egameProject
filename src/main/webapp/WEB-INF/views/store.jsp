@@ -278,7 +278,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
                                 </a>
                                 <span style="color:red"> ${"${t.discntRate}"}% 할인 중!</span>
                             </h5>
-                            <u style="color:red">${"${t.discntEndDate}"}</u><span style="color:white"> 일 종료</span>
+                            <u style="color:red">${"${t.discntEndDate}"}</u><span style="color:white"> 일 까지</span>
                           </div>
                         </div>
                       </div>`;
@@ -310,22 +310,22 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
         if (paging != null) {
           var paging_html = $(".product__pagination");
           paging_html.empty();
-          var html = `<ul>
+          var html = `<ul class="store_page">
             `;
           if (paging.prevBlockPage != 0) {
             html =
               html +
               `
-              <a href="javascript:void(0)" onclick="fn_list(${"${paging.prevBlockPage}"})"><i class="fa fa-angle-double-left"></i></a>
+              <a href="javascript:void(0)" onclick="fn_list(${"${paging.prevBlockPage}"})" class="prev_block"><i class="fa fa-angle-double-left"></i></a>
               `;
           }
 
           if(paging.startPage>0){
               for (var i = paging.startPage; i <= paging.endPage; i++) {
                 if (paging.curPage != i) {
-                  html = html + `<a href="javascript:void(0)"  onclick="fn_list(${"${i}"})">${"${i}"}</a>`;
+                  html = html + `<a href="javascript:void(0)"  onclick="fn_list(${"${i}"})" class="page_link">${"${i}"}</a>`;
                 } else {
-                  html = html + ` <a class="current-page">${"${i}"}</a>`;
+                  html = html + ` <a class="page_link_cur">${"${i}"}</a>`;
                 }
               }
           }
@@ -333,7 +333,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
             html =
               html +
               `
-              <a href="javascript:void(0)" onclick="fn_list(${"${paging.nextBlockPage}"})"><i class="fa fa-angle-double-right"></i></a>
+              <a href="javascript:void(0)" onclick="fn_list(${"${paging.nextBlockPage}"})" class="next_block"><i class="fa fa-angle-double-right"></i></a>
               `;
           }
 
@@ -446,6 +446,92 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
 	  {
 	    background-size: 100% 100%;
 	  }
+	  
+	  .menu__div {
+	  	display: inline-flex;
+	  	line-height: 1;
+	  	font-size: 25px;
+	  }
+	  
+	  .menu__div input[type="checkbox"], .submenu3 input[type="checkbox"], .submenu3 input[type="radio"] {
+	  	margin-left: 10px;
+	  	margin-right: 10px;
+	  	width: 25px;
+	  	height: 25px;
+	  	position: relative;
+	  	bottom: -2px;
+	  }
+	  
+	  .menu__div.active {
+	  	margin-bottom: 16px;
+	  }
+	  
+	  .submenu3 {
+	  	padding: 0;
+	  	font-size: 25px;
+	  }
+	  
+	  .submenu3 li {
+	  	font-size: 25px;
+	  	display: inline-flex;
+    	align-items: center;
+	  }
+	  
+	  .submenu3 input {
+	  	top: 2px;
+	  }
+	  
+	  .product__page__filter {
+	  	display: flex;
+    	float: right;
+	  }
+	  
+	  .product__page__filter p {
+	  	font-size: 20px;
+	  }
+	  
+	  .submenu2 {
+	  	padding-top: 0;
+	  	padding-left: 6px;
+	  }
+	  
+	  .store_page a {
+		    width: 42px;
+		    height: 37px;
+		    padding: 5px;
+		    color: #fff;
+		    text-align: center;
+		    border-radius: 0;
+		    border: 0px;
+		    line-height: 25px;
+	  }
+	  
+	  .page_link_cur {
+		    background-color: #e53637;
+		    cursor: default;
+		    margin-left: 2px;
+		    margin-right: 2px;
+	  }
+	  
+	  .page_link:hover {
+	  	background-color: #e53637;
+	  }
+	  
+	  .prev_block:hover, .next_block:hover {
+	  	background-color: #e53637;
+	  }
+	  
+	  .product-page
+    {
+      display: flex;
+    }
+    .store__side
+    {
+      position: unset;
+      margin-right: 150px;
+      margin-left: -350px;
+    }
+	  
     </style>
   </head>
   <body>
@@ -468,7 +554,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
     <!-- Breadcrumb End -->
     <!-- Product Section Begin -->
     <!-- section class="product-page spad" -->
-    <section class="product-page spad" style="min-height: 1150px;">
+    <section class="product-page spad" >
       <div class="container">
         <div class="row">
           <div class="col-lg-11">
@@ -484,7 +570,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
                     <div class="product__page__filter">
                       <p>정렬방법:</p>
                       <select name="order_value" id="order_value">
-                        <option value=""></option>
+                        <option value="" selected disabled hidden></option>
                         <option value="price_desc" <c:if test="${orderValue eq 'price_desc'}"> selected </c:if>>가격▲</option>
                         <option value="price_asc" <c:if test="${orderValue eq 'price_asc'}"> selected </c:if>>가격▼</option>
                         <option value="grade_desc" <c:if test="${orderValue eq 'grade_desc'}"> selected </c:if>>평점▲</option>
@@ -502,6 +588,8 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
           </div>
         </div>
       </div>
+      
+      <!-------------------------------------------------------------------------------------->
       <div class="store__side">
         <div class="store__search">
           <input type="text" placeholder="제목 검색" id="productName" <c:if test="${productName ne ''}"> value="<c:out value='${productName}'/>"</c:if> />
@@ -540,7 +628,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
               />액션
             </li>
             <br />
-            <div id="action_tag_div">
+            <div id="action_tag_div" style="margin-left: 20px;">
               <input
                 type="checkbox"
                 name="action_tag"
@@ -592,7 +680,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
             </li>
 
             <br />
-            <div id="racing_tag_div">
+            <div id="racing_tag_div" style="margin-left: 20px;">
               <input
                 type="checkbox"
                 name="racing_tag"
@@ -652,7 +740,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
             </li>
 
             <br />
-            <div id="fps_tag_div">
+            <div id="fps_tag_div" style="margin-left: 20px;">
               <input type="checkbox" name="fps_tag" value="0301" />1인칭<br />
               <input type="checkbox" name="fps_tag" value="0302" />3인칭<br />
               <input
@@ -696,7 +784,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
             </li>
 
             <br />
-            <div id="sim_tag_div">
+            <div id="sim_tag_div" style="margin-left: 20px;">
               <input type="checkbox" name="sim_tag" value="0401" />1인칭<br />
               <input type="checkbox" name="sim_tag" value="0402" />3인칭<br />
               <input type="checkbox" name="sim_tag" value="0403" />스포츠<br />
@@ -721,6 +809,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
           <hr color="#f5f5f5" ; />
         </div>
       </div>
+      <!-------------------------------------------------------------------------------------->
       <input type="hidden" id="curPage" />
     </section>
     <input type="hidden" id="store_check" value="1">

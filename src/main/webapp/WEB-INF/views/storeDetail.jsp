@@ -244,7 +244,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
                       <div>
                         <c:choose>
                           <c:when test="${product.discntSeq gt 0}">
-                            <h2 style="color: white"><strike>₩ ${product.productPrice}</strike> -&gt;  ₩ ${product.printPayPrice}</h2>
+                            <h2 style="color: white"><strike>₩ ${product.printProductPrice}</strike> -&gt;  ₩ ${product.printPayPrice}</h2>
                                   <br/>
                             <div id="discnt_div">
                               <span style="color:red;">${product.discntRate} % 할인 중!</span>
@@ -765,28 +765,108 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
       //모달 띄우기(상품) 함수
       function fn_product_modal_on(a)
       {
-        $("#report_product_seq").val(a);
-        $("#reportPr").val('상품');
-        $("#report_pr_html").html('상품');
-        $("#review_kategori").css("display", "none");
-        $("#product_kategori").css("display", "block");
-        $(".modal").css('display','block');
+    	  $.ajax({
+              type: "GET",
+              url: "/store/loginCheck",
+              datatype: "JSON",
+              beforeSend: function (xhr) {
+                xhr.setRequestHeader("AJAX", "true");
+              },
+              success: function (response) {
+                 
+                if(response.code == 404)
+                  {
+                	alert("로그인이 필요합니다.");
+                    location.reload();
+                  }
+                else if(response.code == 0)
+                  {
+                	$(".current").html("상품신고 태그");
+                    $("#report_product_seq").val(a);
+                    $("#reportPr").val('상품');
+                    $("#report_pr_html").html('상품');
+                    $("#review_kategori").css("display", "none");
+                    $("#product_kategori").css("display", "block");
+                    $(".modal").css('display','block');
+                  }
+                },
+                error: function () {
+                  game.common.error(error);
+                }
+              });
       }
 
       //모달 띄우기(리뷰) 함수
       function fn_review_modal_on(a)
       {
-        $("#report_review_seq").val(a);
-        $("#reportPr").val('리뷰');
-        $("#report_pr_html").html('리뷰');
-        $("#product_kategori").css("display", "none");
-        $("#review_kategori").css("display", "block");
-        $(".modal").css('display','block');
+    	  $.ajax({
+              type: "GET",
+              url: "/store/loginCheck",
+              datatype: "JSON",
+              beforeSend: function (xhr) {
+                xhr.setRequestHeader("AJAX", "true");
+              },
+              success: function (response) {
+                 
+                if(response.code == 404)
+                  {
+                	alert("로그인이 필요합니다.");
+                    location.reload();
+                  }
+                else if(response.code == 0)
+                  {
+                	$(".current").html("리뷰신고 태그");
+                    $("#report_review_seq").val(a);
+                    $("#reportPr").val('리뷰');
+                    $("#report_pr_html").html('리뷰');
+                    $("#product_kategori").css("display", "none");
+                    $("#review_kategori").css("display", "block");
+                    $(".modal").css('display','block');
+                  }
+                },
+                error: function () {
+                  game.common.error(error);
+                }
+              });
+    	
       }
 
       //모달 닫기 함수
       function fn_modal_off()
       {
+    	  const reviewGrade = $("#reviewGrade").val()
+    	  
+    	   if(reviewGrade == 0)
+        {
+          $(".current").html("평점");
+          $("select[name='product_grade'] option:eq(0)").prop("selected", true);
+        }
+        else if(reviewGrade == 10)
+        {
+          $(".current").html("★☆☆☆☆");
+          $("select[name='product_grade'] option:eq(1)").prop("selected", true);
+        }
+        else if(reviewGrade == 20)
+        {
+          $(".current").html("★★☆☆☆");
+          $("select[name='product_grade'] option:eq(2)").prop("selected", true);
+        }
+        else if(reviewGrade == 30)
+        {
+          $(".current").html("★★★☆☆");
+          $("select[name='product_grade'] option:eq(3)").prop("selected", true);
+        }
+        else if(reviewGrade == 40)
+        {
+          $(".current").html("★★★★☆");
+          $("select[name='product_grade'] option:eq(4)").prop("selected", true);
+        }
+        else if(reviewGrade == 50)
+        {
+          $(".current").html("★★★★★");
+          $("select[name='product_grade'] option:eq(5)").prop("selected", true);
+        }
+    	  
         $("#reportContent").val("");
         $(".modal").css('display','none');
       }
