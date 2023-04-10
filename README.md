@@ -14,7 +14,7 @@
 여러 패키지게임을 하나의 사이트에서 찾고 구매할 수 있는 사이트의 필요성을 느끼게 되어 이번 기회에 만들게 되었습니다. 
 
 ### 2. 개발일정
-2023.02.27에 시작하여 2023.04.05에 마무리하고 2023.04.06에 프로젝트발표 후 마무리하였습니다.</br>
+2023.02.27에 시작하여 2023.04.05에 마무리하고 2023.04.06에 프로젝트발표 후 마무리하였습니다.</br></br>
 ![개발일정](https://i.esdrop.com/d/f/D6JOYU5GMF/MjEKbGaMrz.png)</br>
 1주차에는 주제선정 및 메뉴구성, DB설계를 하였으며</br>
 2주차에는 DB설계 마무리와 메인페이지 디자인, 본격적인 백, 프론트작업을 실시하여 4주차메 마무리 하였습니다.</br>
@@ -26,14 +26,14 @@
 ![적용기술](https://i.esdrop.com/d/f/D6JOYU5GMF/QblFFIjkAa.png)</br>
 
 ### 2. DB설계
-![DB](https://i.esdrop.com/d/f/D6JOYU5GMF/eehhJtK66T.png)</br>
+![DB](https://i.esdrop.com/d/f/D6JOYU5GMF/eehhJtK66T.png)</br></br>
 총 13개의 테이블로 구성하였습니다.
 
 ### 3. 유저설명 및 메뉴구성도
 유저구분은 크게 3가지로 나뉘어집니다.</br>
 1. 일반사용자, 2. 판매자, 3. 관리자
 
-![메뉴구성도](https://i.esdrop.com/d/f/D6JOYU5GMF/fzLQlWFhCj.png)</br>
+![메뉴구성도](https://i.esdrop.com/d/f/D6JOYU5GMF/fzLQlWFhCj.png)</br></br>
 메뉴구성도 입니다.
 구성도의 하얀색부분은 비회원이 접근할 수 있는 영역이며,</br>
 하양 + 노랑 은 일반회원유저, 하양+노랑+보라는 판매자유저가 접근 가능합니다.</br>
@@ -42,17 +42,17 @@
 ## 주요기능
 
 ### 1. 이메일인증
-![이메일인증](https://i.esdrop.com/d/f/D6JOYU5GMF/AbI9QzYDg7.png)</br>
+![이메일인증](https://i.esdrop.com/d/f/D6JOYU5GMF/AbI9QzYDg7.png)</br></br>
 JavaMailSender를 활용하여 이메일인증기능을 구현했습니다.</br>
 이메일로 중복가입을 제한하며 인증번호 미입력 시 회원가입이 불가합니다.
 
 ### 2. 상품검색기능
-![상품검색](https://i.esdrop.com/d/f/D6JOYU5GMF/R5VB0lTVTw.gif)</br>
+![상품검색](https://i.esdrop.com/d/f/D6JOYU5GMF/R5VB0lTVTw.gif)</br></br>
 상품검색 조건으로는 정렬방법, 상품이름검색,할인여부, 가격검색, 장르 가 있으며 모든 검색조건은 교차검색이 가능합니다.</br>
 상품페이지를 AJAX로 구현하여 검색조건이 바뀔때마다 보이는 상품도 바뀌게됩니다.
 
 ### 3. 리뷰기능
-![리뷰기능](https://i.esdrop.com/d/f/D6JOYU5GMF/rmhrfp5ynk.png)</br>
+![리뷰기능](https://i.esdrop.com/d/f/D6JOYU5GMF/rmhrfp5ynk.png)</br></br>
 상품을 클릭하면 상품상세페이지로 이동합니다.</br>
 리뷰는 상품을 구매해야지만 작성할 수 있으며 평점도 필수로 선택해야만 합니다.</br>
 한사람당 1개의 리뷰만 작성할 수 있으며 이미 작성한 리뷰가 있다면 찾기 쉽게하기위해 리뷰작성란이 사라지고 내가작성한 리뷰가 보이게끔 구성하였습니다.</br>
@@ -60,16 +60,16 @@ JavaMailSender를 활용하여 이메일인증기능을 구현했습니다.</br>
 
 ### 4. 할인기능
 관리자기능중 하나인 할인관리입니다.</br>
-![할인등록](https://i.esdrop.com/d/f/D6JOYU5GMF/L1pnLBqXS8.png)</br>
+![할인등록](https://i.esdrop.com/d/f/D6JOYU5GMF/L1pnLBqXS8.png)</br></br>
 관리자메뉴의 상품관리를 통해 상품상세페이지에 들어가면 할인등록을 할 수 있습니다.</br>
 할인등록에는 할인율, 시작날짜, 종료날짜를 입력해야만 합니다. 등록 후 ,실질적인 할인등록은 관리자메뉴> 할인관리 탭에서 가능합니다.</br>
 
-![할인관리](https://i.esdrop.com/d/f/D6JOYU5GMF/djJV346v12.png)/br>
+![할인관리](https://i.esdrop.com/d/f/D6JOYU5GMF/djJV346v12.png)/br></br>
 
 할인관리에서는 우측상단의 버튼을통해 할인일괄적용, 일괄해제가 가능합니다.
 일괄적용의 경우 현재날짜가 설정된할인의 시작,종료날짜 사이에 있으면서 적용이안된 할인이 있다면 적용시켜줍니다.
 
-![상품할인적용](https://i.esdrop.com/d/f/D6JOYU5GMF/ZeW0rhaI3N.png)/br>
+![상품할인적용](https://i.esdrop.com/d/f/D6JOYU5GMF/ZeW0rhaI3N.png)/br></br>
 
 상품에 할인이 적용된 모습입니다./br>/br>
 
